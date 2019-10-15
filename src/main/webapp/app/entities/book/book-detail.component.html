@@ -1,0 +1,54 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="book">
+            <h2><span>Book</span> {{book.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Title</span></dt>
+                <dd>
+                    <span>{{book.title}}</span>
+                </dd>
+                <dt><span>Description</span></dt>
+                <dd>
+                    <span>{{book.description}}</span>
+                </dd>
+                <dt><span>Publication Date</span></dt>
+                <dd>
+                    <span>{{book.publicationDate}}</span>
+                </dd>
+                <dt><span>Price</span></dt>
+                <dd>
+                    <span>{{book.price}}</span>
+                </dd>
+                <dt><span>Book Image</span></dt>
+                <dd>
+                    <div *ngIf="book.bookImage">
+                        <a (click)="openFile(book.bookImageContentType, book.bookImage)">
+                            <img [src]="'data:' + book.bookImageContentType + ';base64,' + book.bookImage" style="max-width: 100%;" alt="book image"/>
+                        </a>
+                        {{book.bookImageContentType}}, {{byteSize(book.bookImage)}}
+                    </div>
+                </dd>
+                <dt><span>Author</span></dt>
+                <dd>
+                    <div *ngIf="book.author">
+                        <a [routerLink]="['/author', book.author?.id, 'view']">{{book.author?.name}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/book', book.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
